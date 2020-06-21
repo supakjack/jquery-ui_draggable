@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="us">
+  <head>
+    <meta charset="utf-8" />
+    <title>jQuery UI Draggable get set Example</title>
+    <link href="jquery-ui.css" rel="stylesheet" />
+    <script src="jquery.js"></script>
+    <script src="jquery-ui.js"></script>
+  </head>
+  <body>
+    <script>
+      $(document).ready(function () {
+        const drag_item = $("#dragThis");
+        drag_item.offset({ top: 250, left: 250 });
+        $(document).on("change input", "#setX", function () {
+          drag_item.offset({
+            top: $("#setX").val(),
+            left: drag_item.offset().left,
+          });
+        });
+        $(document).on("change input", "#setY", function () {
+          drag_item.offset({
+            left: $("#setY").val(),
+            top: drag_item.offset().top,
+          });
+        });
+        $("#posX").text("x: " + drag_item.offset().left);
+        $("#posY").text("y: " + drag_item.offset().top);
+        drag_item.draggable({
+          drag: function () {
+            $("#posX").text("x: " + drag_item.offset().left);
+            $("#setX").val(drag_item.offset().left);
+            $("#posY").text("y: " + drag_item.offset().top);
+            $("#setY").val(drag_item.offset().top);
+          },
+        });
+      });
+    </script>
+    <style>
+      #dragThis {
+        margin: 10px;
+        width: 6em;
+        height: 6em;
+        padding: 0.5em;
+        border: 3px solid #ccc;
+        border-radius: 0 1em 1em 1em;
+      }
+    </style>
+    <div class="">
+      <span>X posittion :</span>
+      <input
+        type="number"
+        value="250"
+        id="setX"
+        placeholder="Enter X posittion"
+      />
+    </div>
+    <div class="">
+      <span>Y posittion :</span>
+      <input
+        type="number"
+        value="250"
+        id="setY"
+        placeholder="Enter Y posittion"
+      />
+    </div>
+    <div id="dragThis">
+      <ul>
+        <li id="posX"></li>
+        <li id="posY"></li>
+      </ul>
+    </div>
+  </body>
+</html>
